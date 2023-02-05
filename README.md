@@ -1,4 +1,4 @@
-#1. สร้างโปรเจค
+# 1. สร้างโปรเจค
 d:\> cd Code
 d:\Code> mkdir AppTest
 d:\Code> cd AppTest
@@ -8,6 +8,7 @@ d:\Code\AppTest> npm init -y
 จะได้ไฟล์ package.json ในโฟลเดอร์
 d:\Code\AppTest\package.json:
 
+```javascript
 {
   "name": "AppTest",
   "version": "1.0.0",
@@ -20,12 +21,13 @@ d:\Code\AppTest\package.json:
   "author": "",
   "license": "ISC"
 }
+```
 
-
-#2. เพิ่ม Module ใน Node Project
+# 2. เพิ่ม Module ใน Node Project
 d:\Code\AppTest> npm install express ejs sqlite3
 
 ตัวอย่างไฟล์ package.json หลังจาก ติดตั้ง Module ซึ่งของนักศึกษาอาจได้ Version อื่นซึ่งสามารถใช้ได้
+```javascript
 {
   "name": "AppTest",
   "version": "1.0.0",
@@ -43,8 +45,10 @@ d:\Code\AppTest> npm install express ejs sqlite3
     "sqlite3": "^5.1.4"
   }
 }
+  ```
 
-#3.สร้างไฟล์ index.js
+# 3.สร้างไฟล์ index.js
+```javascript
 const express = require("express");
 
 const app = express();
@@ -59,12 +63,12 @@ app.get("/", (req, res) => {
         res.send("Hello world...");
     }
 });
-
+```
 ทดลอง run พิมพ์ node index.js
 
-#4. สร้าง EJS views ใน 
+# 4. สร้าง EJS views ใน 
 4.1 "views/_header.ejs"
-
+```html
 <!doctype html>
 <html lang="fr">
 
@@ -93,16 +97,19 @@ app.get("/", (req, res) => {
         </li>
       </ul>
     </nav>
-
+   ``` 
+  
 4.2 "views/index.ejs"
+  ```html
 <%- include("_header") -%>
 
 <h1>Hello world...</h1>
 
 <%- include("_footer") -%>
-
+  ```
+  
 4.3 "views/_footer.ejs"
-
+```html
 <footer>
       <p>&copy; 2023 - AppTest</p>
     </footer>
@@ -112,10 +119,10 @@ app.get("/", (req, res) => {
 </body>
 
 </html>
-
-#5. ใช้ EJS ใน index.js
+  ```
+# 5. ใช้ EJS ใน index.js
 5.1 เพิ่มโด้ดใน index.js ในบรรทัดก่อน listen
-
+```javascript
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 
@@ -125,11 +132,12 @@ app.get("/", (req, res) => {
         // res.send("Hello world...");
         res.render("index");
     }});
-
+```
 ทดลอง run พิมพ์ node index.js
 
 5.2 ทดลองส่งข้อมูลไปให้ Views
 สร้างไฟล์ data.ejs ใน views โฟลเดอร์
+```javascript
 <%- include("_header") -%>
 
 <h1><%= model.title %></h1>
@@ -143,8 +151,10 @@ app.get("/", (req, res) => {
 </ul>
 
 <%- include("_footer") -%>
+```
 
 5.3 ใน index.js ทดลองส่งข้อมูลไปยัง data.ejs
+```javascript
 app.get("/data", (req, res) => {
   const test = {
     title: "Test",
@@ -152,10 +162,11 @@ app.get("/data", (req, res) => {
   };
   res.render("data", { model: test });
 });
-
+```
 ทดลอง run พิมพ์ node index.js
 
 <<< สรุปไฟล์ index.js ในตอนนี้>>>
+```javascript
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -183,16 +194,18 @@ app.get("/data", (req, res) => {
     };
     res.render("data", { model: test });
 });
-
+```
 
 
 #6. ใช้งานฐานข้อมูล sqlite 
 6.1 เรียกใช้ module
+```javascript
 const sqlite3 = require("sqlite3").verbose();
-
+```
 สร้าง โฟลเดอร์ data เพื่อเก็บฐานข้อมูล
 
 6.2 เชื่อมต่อฐานข้อมูล
+```javascript
 const db_name = path.join(__dirname, "data", "apptest.db");
 const db = new sqlite3.Database(db_name, err => {
   if (err) {
@@ -200,15 +213,18 @@ const db = new sqlite3.Database(db_name, err => {
   }
   console.log("Successful connection to the database 'apptest.db'");
 });
-
+```
 6.3 สร้างตาราง
+```sql
 const sql_create = `CREATE TABLE IF NOT EXISTS Books (
   Book_ID INTEGER PRIMARY KEY AUTOINCREMENT,
   Title VARCHAR(100) NOT NULL,
   Author VARCHAR(100) NOT NULL,
   Comments TEXT
 );`;
+```
 
+```javascript
 db.run(sql_create, err => {
   if (err) {
     return console.error(err.message);
@@ -225,11 +241,24 @@ db.run(sql_create, err => {
       return console.error(err.message);
     }
     console.log("Successful creation of 3 books");
-  });
-});
+    // Database seeding
+    const sql_insert = `INSERT INTO Books (Book_ID, Title, Author, Comments) VALUES
+    (1, 'Somchai', 'Somchai', 'Programming'),
+    (2, 'Somsri', 'Somsri', 'Coding'),
+    (3, 'Somjai', 'Somjai', 'Network');`;
+        db.run(sql_insert, err => {
+            if (err) {
+                return console.error(err.message);
+            }
+            console.log("Successful creation of 3 books");
+        });
+      });
+    });
+```
 
 6.4 แสดงข้อมูล
 6.4.1 สร้างไฟล์ views books.ejs ในโฟลเดอร์ views
+```html
 <%- include("_header") -%>
 
 <h1>List of books</h1>
@@ -246,8 +275,10 @@ db.run(sql_create, err => {
 </ul>
 
 <%- include("_footer") -%>
+```
 
 6.4.2 เรียกใช้ ใน index.js
+```javascript
 app.get("/books", (req, res) => {
   const sql = "SELECT * FROM Books ORDER BY Title"
   db.all(sql, [], (err, rows) => {
@@ -257,7 +288,7 @@ app.get("/books", (req, res) => {
     res.render("books", { model: rows });
   });
 });
-
+```
 ทดลอง run node index.js
 
 คลิกเลือกเมนู books
