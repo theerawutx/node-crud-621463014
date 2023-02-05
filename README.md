@@ -1,10 +1,11 @@
 # 1. สร้างโปรเจค
+```cmd
 d:\> cd Code
 d:\Code> mkdir AppTest
 d:\Code> cd AppTest
 d:\Code\AppTest> code .
 d:\Code\AppTest> npm init -y
-
+```
 จะได้ไฟล์ package.json ในโฟลเดอร์
 d:\Code\AppTest\package.json:
 
