@@ -1,4 +1,5 @@
 # 1. สร้างโปรเจค
+จะใช้ command หรือ visual studio code ก็ได้
 ```cmd
 d:\> cd Code
 d:\Code> mkdir AppTest
