@@ -25,8 +25,9 @@ d:\Code\AppTest\package.json:
 ```
 
 # 2. เพิ่ม Module ใน Node Project
+```npm
 d:\Code\AppTest> npm install express ejs sqlite3
-
+```
 ตัวอย่างไฟล์ package.json หลังจาก ติดตั้ง Module ซึ่งของนักศึกษาอาจได้ Version อื่นซึ่งสามารถใช้ได้
 ```javascript
 {
