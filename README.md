@@ -89,9 +89,6 @@ app.get("/", (req, res) => {
       <a class="navbar-brand" href="/">AppTest</a>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="/data">Data</a>
         </li>
         <li class="nav-item">
