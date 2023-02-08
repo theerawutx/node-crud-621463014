@@ -1,0 +1,25 @@
+{
+  "name": "node-crud-621463014",
+  "version": "1.0.0",
+  "description": "จะใช้ command หรือ visual studio code ก็ได้\r ```cmd\r d:\\> cd Code\r d:\\Code> mkdir AppTest\r d:\\Code> cd AppTest\r d:\\Code\\AppTest> code .\r d:\\Code\\AppTest> npm init -y\r ```\r จะได้ไฟล์ package.json ในโฟลเดอร์\r d:\\Code\\AppTest\\package.json:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theerawutx/node-crud-621463014.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theerawutx/node-crud-621463014/issues"
+  },
+  "homepage": "https://github.com/theerawutx/node-crud-621463014#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.4"
+  }
+}
